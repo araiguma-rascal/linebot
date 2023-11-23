@@ -27,7 +27,24 @@ git clone <このディレクトリのgit URL>
 CHANNEL_ACCESS_TOKEN=<YOUR CHANNEL_ACCESS_TOKEN>
 CHANNEL_SECRET=<YOUR CHANNEL_SECRET>
 ```
-3. こちらでローカルの設定は完了です。次はサーバーを構築します。
+3. こちらでローカルの設定は完了です。次はローカルでデバッグする手順です。そのままGoogle Cloudで実行したい時はデバッグを飛ばしてもOK。
+
+## デバッグ
+1. package.jsonに記載されたモジュールをインストールする。
+```
+yarn
+```
+2. server.jsの内容を実行する。
+```
+yarn run start
+```
+3. ngrokでURLを作って、localhostのport 3000に繋がるようにする。
+```
+ngrok http 3000
+```
+4. この時表示されるアドレスをLINE DevelopersのwebhookURLに入力し、末尾に`/callback`をつけ、`https://hogehoge/callback`とする。
+5. 作成しておいたLINE botにメッセージを送ると、みつをの返信が返ってくる。
+6. 次はサーバーの構築とデプロイです。
 
 ## Google Cloud Platform上にサーバーを構築
 1. [Google Cloud Platformでプロジェクトを作成し、Google Cloud CLIをインストール](https://cloud.google.com/appengine/docs/standard/nodejs/building-app/creating-project?hl=ja)してください。
@@ -36,5 +53,5 @@ CHANNEL_SECRET=<YOUR CHANNEL_SECRET>
 ```
 gcloud app deploy
 ```
-4. `Deployed service [default] to [https://hogehoge.appspot.com]`というメッセージが出ていると思うので、このURLをコピーし、LINE DevelopersのwebhookURLに入力し、末尾に`/callback`をつけ、`https://hogehoge.appspot.com/callback`とする。
-5. 以上でデプロイ完了です。このbotにメッセージを送ると名言が返ってくるはずです。
+4. `Deployed service [default] to [https://hogehoge.appspot.com]`というメッセージが出ているので、このURLをコピーし、LINE DevelopersのwebhookURLに入力し、末尾に`/callback`をつけ、`https://hogehoge.appspot.com/callback`とする。
+5. 以上でデプロイ完了です。このbotにメッセージを送ると名言が返ってきます。
