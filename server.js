@@ -39,19 +39,11 @@ app.post('/callback', line.middleware(config), (req, res) => {
 
 // イベントハンドラー
 const handleEvent = (event) => {
-  if (event.type !== 'message' || event.message.type !== 'text') {
-    // イベントタイプがテキストメッセージ以外のものは処理しない
-    return Promise.resolve(null);
-  }
-
-  // クライアントから入力された文字列をセット
-  //const echo = { type: 'text', text: event.message.text };
-
   //みつをの名言をランダムに返信
   const random = Math.floor(Math.random() * datalen);
   const reply = { type: 'text', text: data["quotes"][random] };
 
-  // リプライ API を用いてクライアントから入力さレた文字列をそのまま返信
+  // リプライ API を用いて返信
   return client.replyMessage(event.replyToken, reply);
 }
 
